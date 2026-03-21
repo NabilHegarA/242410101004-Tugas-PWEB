@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style1.css">
+    <title>HookPoint - Club Pemancingan</title>
+</head>
+
+<body>
+    <header class="main-header">
+        <div class="logo-section">
+            <img src="logo.png" alt="Logo HookPoint">
+            <p>HookPoint - Club Pemancingan</p>
+        </div>
+
+        <input type="checkbox" id="menu-toggle">
+
+        <label for="menu-toggle" class="menu-icon">
+            ☰
+        </label>        
+        
+        <nav class="navbar">
+            <ul>
+                <li><a href="index-css.html">Beranda</a></li>
+                <li><a href="lapak.html">Lapak</a></li>
+                <li><a href="masuk.html">Masuk</a></li>
+                <li><a href="daftar.html">Daftar</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>Reservasi Lapak HookPoint - Club Pemancingan</h1>
+            <h2>Rasakan Pengalaman Memancing Eksklusif</h2>
+            <h3>Buka 09.00 - 20.00 WIB</h3>
+        </section>
+
+        <section class="container">
+            <h2>Cari Lapak</h2>
+
+            <form class="search-form">
+                <input type="text" placeholder="Cari lapak...">
+                <button type="submit">Cari</button>
+            </form>
+
+            <div class="content-area">
+
+            <aside class="filter-sidebar">
+            <h3 class="filter-lapak">Filter Lapak</h3>
+
+            <label>
+            <input type="checkbox" name="kolam" value="A"> Kolam Lele
+            </label>
+
+            <label>
+            <input type="checkbox" name="kolam" value="B"> Kolam Nila
+            </label>
+
+            <label>
+            <input type="checkbox" name="kolam" value="C"> Kolam Gurame
+            </label>
+
+            <label>
+            <input type="checkbox" name="kolam" value="D"> Kolam Patin
+            </label>
+
+            <h3 class="filter-harga">Filter Harga</h3>
+
+            <label>
+            <input type="checkbox" name="harga" value="70-100"> Rp 70.000 - 100.000
+            </label>
+
+            <label>
+            <input type="checkbox" name="harga" value="101-150"> Rp 101.000 - 150.000
+            </label>
+
+            <label>
+            <input type="checkbox" name="harga" value="151-200"> Rp 151.000 - 200.000
+            </label>
+            </aside>
+
+            <div class="lapak-grid">
+                
+                <article class="card">
+                    <img src="kolam-lele.png" alt="Kolam Lele">
+                    <h3>Lapak A1</h3>
+                    <p><strong>Jenis:</strong> Kolam Lele</p>
+                    <p><strong>Harga:</strong> Rp 80.000 / hari</p>
+                    <p>Kolam lele dengan suasana tenang, cocok untuk pemancing santai.</p>
+                    <a href="masuk.html" class="btn">Booking Sekarang</a>
+                </article>
+
+                <article class="card">
+                    <img src="kolam-nila.png" alt="Kolam Nila">
+                    <h3>Lapak B1</h3>
+                    <p><strong>Jenis:</strong> Kolam Nila</p>
+                    <p><strong>Harga:</strong> Rp 100.000 / hari</p>
+                    <p>Pemandangan luas dengan ikan nila berkualitas dan mudah dipancing.</p>
+                    <a href="masuk.html" class="btn">Booking Sekarang</a>
+                </article>
+
+                <article class="card">
+                    <img src="kolam-gurame.png" alt="Kolam Gurame">
+                    <h3>Lapak C1</h3>
+                    <p><strong>Jenis:</strong> Kolam Gurame</p>
+                    <p><strong>Harga:</strong> Rp 150.000 / hari</p>
+                    <p>Kolam gurame dengan ukuran ikan besar, cocok untuk tantangan.</p>
+                    <a href="masuk.html" class="btn">Booking Sekarang</a>
+                </article>
+
+                <article class="card">
+                    <img src="kolam-patin.png" alt="Kolam Patin">
+                    <h3>Lapak D1</h3>
+                    <p><strong>Jenis:</strong> Kolam Patin</p>
+                    <p><strong>Harga:</strong> Rp 180.000 / hari</p>
+                    <p>Area luas dengan ikan patin aktif, cocok untuk pengalaman seru.</p>
+                    <a href="masuk.html" class="btn">Booking Sekarang</a>
+                </article>
+
+            </div>
+            </div>
+
+            <h2>Data Kolam</h2>
+                <table class="data-table">
+
+                <thead>
+                <tr>
+                <th>Kolam</th>
+                <th>Jenis Ikan</th>
+                <th>Kapasitas</th>
+                <th>Status</th>
+                </tr>
+                </thead>
+
+                <tbody>
+
+                <tr>
+                <td>Kolam A</td>
+                <td>Lele</td>
+                <td>5</td>
+                <td>Tersedia</td>
+                </tr>
+
+                <tr>
+                <td>Kolam B</td>
+                <td>Nila</td>
+                <td>5</td>
+                <td>Tersedia</td>
+                </tr>
+
+                <tr>
+                <td>Kolam C</td>
+                <td>Gurame</td>
+                <td>5</td>
+                <td>Tersedia</td>
+                </tr>
+
+                <tr>
+                <td>Kolam D</td>
+                <td>Patin</td>
+                <td>5</td>
+                <td>Tersedia</td>
+                </tr>
+                </tbody>
+                </table>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-container">
+
+        <div class="footer-column">
+            <h3>HookPoint</h3>
+            <p>Platform reservasi lapak pemancingan yang memudahkan pemancing untuk memesan tempat secara online.</p>
+        </div>
+
+        <div class="footer-column">
+            <h3>Menu</h3>
+            <p><a href="index-css.html">Beranda</a></p>
+            <p><a href="lapak.html">Lapak</a></p>
+            <p><a href="masuk.html">Masuk</a></p>
+            <p><a href="daftar.html">Daftar</a></p>
+        </div>
+
+        <div class="footer-column">
+            <h3>Kontak</h3>
+            <p>Email: hookpoint@email.com</p>
+            <p>Telepon: 08123456789</p>
+            <p>Alamat: Kota Pemancingan</p>
+        </div>
+
+        </div>
+
+            <p class="footer-copy">&copy; 2026 HookPoint - Club Pemancingan</p>
+    </footer>
+</body>
+</html>
