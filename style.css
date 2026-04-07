@@ -1,0 +1,580 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background: #f5f5f5;
+}
+
+.main-header {
+    background: #1f3c2c;
+    color: white;
+    padding: 0 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+.logo-section {
+    display: flex;
+    gap: 10px;
+    font-size: 10px;
+    font-weight: bold;
+    align-items: center;
+}
+
+.logo-section img {
+    width: 50px;
+    margin-left: 15px;
+}
+
+.logo-section p {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.navbar {
+    width: 100%;
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #1f3c2c;
+}
+
+.navbar ul {
+    list-style: none;
+    margin: 0;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.navbar li {
+    font-size: 15px;
+    margin-left: 30px;
+}
+
+.navbar a {
+    display: block;       
+    padding: 5px 0;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+    text-align: center;
+}
+
+.navbar a:hover{
+    color:#9fd6b1;
+}
+
+#menu-toggle{
+    display: none;
+}
+
+#menu-toggle:checked ~ .navbar {
+    display: block;
+}
+
+.menu-icon{
+    display:block;
+    font-size:28px;
+    color:white;
+    cursor:pointer;
+    padding-right:20px;
+}
+
+.hero {
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("BG_HEADER.png");
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    height: auto;
+    padding: 100px 20px;
+    display: flex;
+    flex-direction:column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+    background-repeat:no-repeat;
+    width:100%;
+}
+
+.hero h1, .hero h2, .hero h3{
+    animation: fadeUp 1s ease;
+}
+
+@keyframes fadeUp{
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.hero h1{
+    margin-bottom:5px;
+    font-size:36px;
+}
+
+.hero h2{
+    font-size:24px;
+    margin-bottom: 5px;
+}
+
+.hero h3{
+    font-size:18px;
+}
+
+.container {
+    width: 100%;
+    padding: 0 15px;
+    margin: 40px auto;
+}
+
+.container h1 {
+    max-width: 1200px;
+    margin-top: 90px;
+    margin-bottom: 20px;
+}
+
+.container h2{
+    margin-top: 40px;
+}
+
+.search-form{
+    margin: 20px 0;
+    display: flex;
+    gap: 10px;
+    padding: 15px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    transition: 0.3s;
+}
+
+.search-form:hover{
+    box-shadow: 0 12px 35px rgba(0,0,0,0.15);
+}
+
+.search-form input{
+    flex:1;
+    padding:10px;
+    border:1px solid #ccc;
+    border-radius:5px;
+}
+
+.search-form input:focus{
+    outline:none;
+    border-color:#2f7a4d;
+    box-shadow:0 0 5px rgba(47,122,77,0.5);
+}
+
+.search-form button{
+    padding:10px 20px;
+    background:#2f7a4d;
+    color:white;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+.search-form button:hover{
+    background:#1f5a36;
+}
+
+.content-area{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+}
+
+.filter-sidebar{
+    grid-column: span 1;
+    background:white;
+    padding:25px;
+    border-radius:10px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.1);
+    width: 100%;
+    min-width: auto;
+}
+
+.filter-lapak{
+    margin-bottom: 10px;
+}
+
+.filter-harga{
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+
+.filter-sidebar label{
+    display: block;
+    padding: 8px;
+    border-radius: 5px;
+    transition: 0.2s;
+}
+
+.filter-sidebar input[type="checkbox"]{
+    accent-color: #2f7a4d;
+    transform: scale(1.1);
+    margin-right: 8px;
+}
+
+/* ===================== */
+/* LOGIN PAGE */
+/* ===================== */
+.masuk-area{
+    background: url("BG_HEADER.png");
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.masuk-container{
+    background: white;
+    padding: 40px;
+    width: 90%;
+    max-width: 350px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    text-align: center;
+}
+
+.subtitle{
+    margin-bottom: 15px;
+}
+
+.masuk-container input{
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.masuk-container button{
+    width: 100%;
+    padding: 10px;
+    background: #2f7a4d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+.masuk-container button:hover{
+    background: #25663f;
+}
+
+/* ===================== */
+/* REGIST PAGE */
+/* ===================== */
+.daftar-area{
+    background: url("BG_HEADER.png");
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.daftar-container{
+    background: white;
+    padding: 40px;
+    width: 90%;
+    max-width: 350px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    text-align: center;
+}
+
+.subtitle{
+    margin-bottom: 15px;
+}
+
+.daftar-container input{
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.daftar-container button{
+    width: 100%;
+    padding: 10px;
+    background: #2f7a4d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+.daftar-container button:hover{
+    background: #25663f;
+}
+
+/* LAPAK GRID - RESPONSIVE 1-2-4 KOLOM */
+.lapak-grid {
+    grid-column: span 1;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    align-items: stretch;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    justify-content: space-between;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover{
+    transform: translateY(-8px);
+    box-shadow:0 25px 50px rgba(0,0,0,0.2);
+}
+
+.card img{
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 15px;
+    margin-bottom: 15px;
+    transition: transform 0.4s ease;
+}
+
+.card:hover img {
+    transform: scale(1.1);
+}
+
+.card h3{
+    margin-bottom: 15px;
+    color: #2a6828;
+    font-size: 1.3rem;
+    font-weight: bold;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.card p {
+    color: #000000;
+    margin-bottom: 10px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background: #2f7a4d;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    margin-top: auto;
+    transition: 0.3s;
+    text-align: center;
+}
+
+.btn:hover{
+    background:#1f5a36;
+    transform:scale(1.05);
+}
+
+/* STATUS LAPAK */
+.status{
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.available{
+    color: #28a745 !important;
+}
+
+.unavailable{
+    color: #dc3545 !important;
+}
+
+.disabled{
+    background: gray;
+    pointer-events: none;
+}
+
+/* TABEL - ZEBRA STRIPING PREMIUM */
+.data-table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:30px;
+    background:white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
+    font-size: 12;
+    table-layout: fixed;
+}
+
+.data-table th,
+.data-table td{
+    padding: 8px;
+    border-bottom:1px solid #e8f5e8;
+    text-align:left;
+}
+
+.data-table td{
+    word-break: break-word;
+}
+
+.data-table th{
+    background: linear-gradient(135deg, #2f7a4d, #1f5a36);
+    color:white;
+    font-weight: 600;
+}
+
+/* ZEBRA + HOVER */
+.data-table tbody tr:nth-child(even){
+    background:#f8f9fa;
+}
+
+.data-table tbody tr:hover {
+    background: #e8f5e8;
+    transform: scale(1.01);
+    transition: all 0.2s ease;
+}
+
+/* FOOTER RESPONSIF 3 KOLOM */
+.main-footer {
+    text-align: center;
+    padding: 20px;
+    background: #1f3c2c;
+    color: white;
+    transition:0.3s;
+}
+
+.footer-container{
+    display:grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    width: 100%;
+    padding: 20px;
+    max-width:1200px;
+    margin:auto;
+    padding:20px;
+    text-align: center;
+}
+
+
+.footer-column h3{
+    margin-bottom:10px;
+    color: #9fd6b1;
+    text-align: center;
+}
+
+.footer-column p,
+.footer-column a{
+    color: #d1e7d4;
+    text-decoration: none;
+    line-height: 1.8;
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+.footer-column a:hover{
+    color: white;
+    text-decoration: underline;
+}
+
+.footer-copy{
+    text-align: center;
+    margin-top:10px;
+    padding-top:20px;
+    border-top: 1px solid #2f7a4d;
+    opacity: 0.8;
+    font-size:14px;
+}
+
+/* ===================== */
+/* TABLET ≥768px */
+/* ===================== */
+@media (min-width: 768px){
+
+    .lapak-grid{
+        grid-template-columns: repeat(2,1fr);
+    }
+
+    .content-area{
+        grid-template-columns: 250px 1fr;
+    }
+
+    .footer-container{
+        grid-template-columns: repeat(3,1fr);
+        text-align: left;
+    }
+
+    .navbar{
+        display: block;
+        position: static;
+        width: auto;
+        background: none;
+    }
+
+    .navbar ul{
+        flex-direction: row;
+    }
+
+    .menu-icon{
+        display: none;
+    }
+}
+
+/* ===================== */
+/* DESKTOP ≥1200px */
+/* ===================== */
+@media (min-width: 1200px){
+
+    .lapak-grid{
+        grid-template-columns: repeat(4,1fr);
+    }
+
+    .footer-container{
+        max-width:1200px;
+        margin:auto;
+    }
+
+    .navbar{
+        display: block;
+        position: static;
+        width: auto;
+        background: none;
+    }
+
+    .navbar ul{
+        flex-direction: row;
+    }
+
+    .menu-icon{
+        display: none;
+    }
+}
