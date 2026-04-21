@@ -1,199 +1,220 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>HookPoint - Club Pemancingan</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Admin Dashboard - HookPoint</title>
+    <link rel="stylesheet" href="index.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
-    <header class="main-header">
-        <div class="logo-section">
-            <img src="logo.png" alt="Logo HookPoint">
-            <p>HookPoint - Club Pemancingan</p>
+
+    <div class="sidebar" id="sidebar">
+
+        <div class="sidebar-header">
+            <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+            <span class="menu-title">Menu</span>
         </div>
 
-        <input type="checkbox" id="menu-toggle">
+        <a href="index.html" class="active"><span class="icon">🏠</span><span>Dashboard</span></a>
+        <a href="profil.html"><span class="icon">👤</span><span>Profil</span></a>
+        <a href="lapakadmin.html"><span class="icon">🎣</span><span>Lapak</span></a>
+        <a href="transaksiadmin.html"><span class="icon">🧾</span><span>Transaksi</span></a>
 
-        <label for="menu-toggle" class="menu-icon">
-            ☰
-        </label>        
-        
-        <nav class="navbar">
-            <ul>
-                <li><a href="index.html">Beranda</a></li>
-                <li><a href="lapak.html">Lapak</a></li>
-                <li><a href="masuk.html">Masuk</a></li>
-                <li><a href="daftar.html">Daftar</a></li>
-            </ul>
-        </nav>
-    </header>
+        <div class="sidebar-bottom">
+            <hr>
+            <a href="#" onclick="openModal()">
+                <span class="icon">🚪</span>
+                <span>Logout</span>
+            </a>
+        </div>
 
-    <main>
-        <section class="hero">
-            <h1>Reservasi Lapak HookPoint - Club Pemancingan</h1>
-            <h2>Rasakan Pengalaman Memancing Eksklusif</h2>
-            <h3>Buka 09.00 - 20.00 WIB</h3>
-        </section>
+    </div>
 
-        <section class="container">
-            <h2>Cari Lapak</h2>
+    <div class="main">
 
-            <form class="search-form">
-                <input type="text" placeholder="Cari lapak...">
-                <button type="submit">Cari</button>
-            </form>
-
-            <div class="content-area">
-
-            <aside class="filter-sidebar">
-            <h3 class="filter-lapak">Filter Lapak</h3>
-
-            <label>
-            <input type="checkbox" name="kolam" value="A"> Kolam Lele
-            </label>
-
-            <label>
-            <input type="checkbox" name="kolam" value="B"> Kolam Nila
-            </label>
-
-            <label>
-            <input type="checkbox" name="kolam" value="C"> Kolam Gurame
-            </label>
-
-            <label>
-            <input type="checkbox" name="kolam" value="D"> Kolam Patin
-            </label>
-
-            <h3 class="filter-harga">Filter Harga</h3>
-
-            <label>
-            <input type="checkbox" name="harga" value="70-100"> Rp 70.000 - 100.000
-            </label>
-
-            <label>
-            <input type="checkbox" name="harga" value="101-150"> Rp 101.000 - 150.000
-            </label>
-
-            <label>
-            <input type="checkbox" name="harga" value="151-200"> Rp 151.000 - 200.000
-            </label>
-            </aside>
-
-            <div class="lapak-grid">
-                
-                <article class="card">
-                    <img src="kolam-lele.png" alt="Kolam Lele">
-                    <h3>Lapak A1</h3>
-                    <p><strong>Jenis:</strong> Kolam Lele</p>
-                    <p><strong>Harga:</strong> Rp 80.000 / hari</p>
-                    <p>Kolam lele dengan suasana tenang, cocok untuk pemancing santai.</p>
-                    <a href="masuk.html" class="btn">Booking Sekarang</a>
-                </article>
-
-                <article class="card">
-                    <img src="kolam-nila.png" alt="Kolam Nila">
-                    <h3>Lapak B1</h3>
-                    <p><strong>Jenis:</strong> Kolam Nila</p>
-                    <p><strong>Harga:</strong> Rp 100.000 / hari</p>
-                    <p>Pemandangan luas dengan ikan nila berkualitas dan mudah dipancing.</p>
-                    <a href="masuk.html" class="btn">Booking Sekarang</a>
-                </article>
-
-                <article class="card">
-                    <img src="kolam-gurame.png" alt="Kolam Gurame">
-                    <h3>Lapak C1</h3>
-                    <p><strong>Jenis:</strong> Kolam Gurame</p>
-                    <p><strong>Harga:</strong> Rp 150.000 / hari</p>
-                    <p>Kolam gurame dengan ukuran ikan besar, cocok untuk tantangan.</p>
-                    <a href="masuk.html" class="btn">Booking Sekarang</a>
-                </article>
-
-                <article class="card">
-                    <img src="kolam-patin.png" alt="Kolam Patin">
-                    <h3>Lapak D1</h3>
-                    <p><strong>Jenis:</strong> Kolam Patin</p>
-                    <p><strong>Harga:</strong> Rp 180.000 / hari</p>
-                    <p>Area luas dengan ikan patin aktif, cocok untuk pengalaman seru.</p>
-                    <a href="masuk.html" class="btn">Booking Sekarang</a>
-                </article>
-
-            </div>
+        <div class="navbar">
+            <div class="left">
+                <img src="logo.png" alt="Logo HookPoint">
+                <span class="brand">HookPoint - Club Pemancingan</span>
             </div>
 
-            <h2>Data Kolam</h2>
-                <table class="data-table">
-
-                <thead>
-                <tr>
-                <th>Kolam</th>
-                <th>Jenis Ikan</th>
-                <th>Kapasitas</th>
-                <th>Status</th>
-                </tr>
-                </thead>
-
-                <tbody>
-
-                <tr>
-                <td>Kolam A</td>
-                <td>Lele</td>
-                <td>5</td>
-                <td>Tersedia</td>
-                </tr>
-
-                <tr>
-                <td>Kolam B</td>
-                <td>Nila</td>
-                <td>5</td>
-                <td>Tersedia</td>
-                </tr>
-
-                <tr>
-                <td>Kolam C</td>
-                <td>Gurame</td>
-                <td>5</td>
-                <td>Tersedia</td>
-                </tr>
-
-                <tr>
-                <td>Kolam D</td>
-                <td>Patin</td>
-                <td>5</td>
-                <td>Tersedia</td>
-                </tr>
-                </tbody>
-                </table>
-        </section>
-    </main>
-
-    <footer class="main-footer">
-        <div class="footer-container">
-
-        <div class="footer-column">
-            <h3>HookPoint</h3>
-            <p>Platform reservasi lapak pemancingan yang memudahkan pemancing untuk memesan tempat secara online.</p>
+            <div class="right">
+                Selamat datang, <b>Admin</b>
+            </div>
         </div>
 
-        <div class="footer-column">
-            <h3>Menu</h3>
-            <p><a href="index-css.html">Beranda</a></p>
-            <p><a href="lapak.html">Lapak</a></p>
-            <p><a href="masuk.html">Masuk</a></p>
-            <p><a href="daftar.html">Daftar</a></p>
+        <div class="content">
+
+            <div class="content-header">
+                <a href="tambah-lapak.html" class="btn-tambah">
+                    + Tambah Data Lapak
+                </a>
+            </div>
+
+            <div class="cards">
+                <div class="card">
+                    <h3>Total Lapak</h3>
+                    <h2 id="totalLapak">5</h2>
+                    <progress id="progressTotal" value="5" max="5"></progress>
+                </div>
+
+                <div class="card">
+                    <h3>Lapak Available</h3>
+                    <h2 id="lapakAvailable">4</h2>
+                    <progress id="progressAvailable" value="4" max="5"></progress>
+                </div>
+
+                <div class="card">
+                    <h3>Lapak Not Available</h3>
+                    <h2 id="lapakNotAvailable">1</h2>
+                    <progress id="progressNotAvailable" value="1" max="5"></progress>
+                </div>
+            </div>
+
+            <div class="chart-card">
+                <h3>Total Penjualan 2026</h3>
+                <canvas id="chartPenjualan"></canvas>
+            </div>
+
+            <div class="chart-card">
+                <h3>Total Transaksi 2026</h3>
+                <canvas id="chartTransaksi"></canvas>
+            </div>
         </div>
 
-        <div class="footer-column">
-            <h3>Kontak</h3>
-            <p>Email: hookpoint@email.com</p>
-            <p>Telepon: 08123456789</p>
-            <p>Alamat: Kota Pemancingan</p>
-        </div>
+    </div>
 
-        </div>
+    <div id="logoutModal" class="modal">
+        <div class="modal-content">
+            <h3>Konfirmasi Logout</h3>
+            <p>Apakah anda yakin ingin keluar?</p>
 
-            <p class="footer-copy">&copy; 2026 HookPoint - Club Pemancingan</p>
-    </footer>
+            <div class="modal-actions">
+                <button class="btn-cancel" onclick="closeModal()">Batal</button>
+                <button class="btn-logout" onclick="confirmLogout()">Logout</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            document.getElementById("sidebar").classList.toggle("close");
+        }
+
+        function openModal() {
+            document.getElementById("logoutModal").style.display = "flex";
+        }
+
+        function closeModal() {
+            document.getElementById("logoutModal").style.display = "none";
+        }
+
+        function confirmLogout() {
+            window.location.href = "index.html";
+        }
+
+        window.onclick = function(e) {
+            const modal = document.getElementById("logoutModal");
+            if (e.target === modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        /* ================= DATA PENJUALAN ================= */
+        if (!localStorage.getItem("penjualan")) {
+            localStorage.setItem("penjualan", JSON.stringify([
+                { tanggal: "2026-01-10", total: 80000 },
+                { tanggal: "2026-01-13", total: 80000 },
+                { tanggal: "2026-02-12", total: 120000 },
+                { tanggal: "2026-02-15", total: 120000 },
+                { tanggal: "2026-03-05", total: 80000 },
+                { tanggal: "2026-03-10", total: 120000 },
+                { tanggal: "2026-04-01", total: 80000 },
+                { tanggal: "2026-04-01", total: 80000 },
+                { tanggal: "2026-04-01", total: 80000 }
+            ]));
+        }
+
+        const penjualan = JSON.parse(localStorage.getItem("penjualan")) || [];
+
+        /* ================= CHART PENJUALAN ================= */
+        let penjualanBulanan = new Array(12).fill(0);
+
+        penjualan.forEach(t => {
+            if (!t.tanggal || !t.total) return;
+
+            const date = new Date(t.tanggal);
+            const year = date.getFullYear();
+            const month = date.getMonth();
+
+            if (year === 2026) {
+                penjualanBulanan[month] += t.total;
+            }
+        });
+
+        const canvas = document.getElementById("chartPenjualan");
+
+        if (canvas) {
+            new Chart(canvas, {
+                type: "bar",
+                data: {
+                    labels: [
+                        "Jan","Feb","Mar","Apr","Mei","Jun",
+                        "Jul","Agu","Sep","Okt","Nov","Des"
+                    ],
+                    datasets: [{
+                        label: "Total Penjualan",
+                        data: penjualanBulanan,
+                        backgroundColor: "#2e8b57"
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+        }
+
+        /* ================= CHART JUMLAH TRANSAKSI ================= */
+        let transaksiBulanan = new Array(12).fill(0);
+
+        penjualan.forEach(t => {
+            if (!t.tanggal) return;
+
+            const date = new Date(t.tanggal);
+            const year = date.getFullYear();
+            const month = date.getMonth();
+
+            if (year === 2026) {
+                transaksiBulanan[month] += 1;
+            }
+        });
+
+        const canvasTransaksi = document.getElementById("chartTransaksi");
+
+        if (canvasTransaksi) {
+            new Chart(canvasTransaksi, {
+                type: "bar",
+                data: {
+                    labels: [
+                        "Jan","Feb","Mar","Apr","Mei","Jun",
+                        "Jul","Agu","Sep","Okt","Nov","Des"
+                    ],
+                    datasets: [{
+                        label: "Jumlah Transaksi",
+                        data: transaksiBulanan,
+                        backgroundColor: "#3498db"
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+        }
+        </script>
+
 </body>
 </html>

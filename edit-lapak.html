@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Lapak</title>
+    <link rel="stylesheet" href="edit-lapak.css">
+</head>
+
+<body>
+
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+            <span class="menu-title">Menu</span>
+        </div>
+        
+        <a href="index.html"><div class="icon">🏠</div><span>Dashboard</span></a>
+        <a href="profil.html"><div class="icon">👤</div><span>Profil</span></a>
+        <a href="lapakadmin.html" class="active"><div class="icon">🎣</div><span>Lapak</span></a>
+        <a href="transaksiadmin.html"><div class="icon">📄</div><span>Transaksi</span></a>
+
+        <div class="sidebar-bottom">
+            <hr>
+            <a href="#" onclick="openModal()">
+                <span class="icon">🚪</span>
+                <span>Logout</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="main">
+
+        <div class="navbar">
+            <div class="left">
+                <img src="logo.png" alt="Logo">
+                <span class="brand">HookPoint - Club Pemancingan</span>
+            </div>
+
+            <div class="right">
+                Selamat datang, <b id="namaAdmin">Admin</b>
+            </div>
+        </div>
+
+        <div class="content">
+
+            <div id="successMsg" class="success-msg">
+                Perubahan berhasil disimpan!
+            </div>
+
+            <div id="errorMsg" class="error-msg-global">
+                Data gagal disimpan, periksa kembali!
+            </div>
+
+            <div class="profile-card">
+                <h2>Edit Lapak</h2>
+
+                <div class="field">
+                    <label for="nama">Nama Lapak</label>
+                    <input type="text" id="nama">
+                    <small class="error-msg" id="error-nama"></small>
+                </div>
+
+                <div class="field">
+                    <label for="jenis">Jenis Kolam</label>
+                    <input type="text" id="jenis">
+                    <small class="error-msg" id="error-jenis"></small>
+                </div>
+
+                <div class="field">
+                    <label for="harga">Harga</label>
+                    <input type="text" id="harga">
+                    <small class="error-msg" id="error-harga"></small>
+                </div>
+
+                <div class="field">
+                    <label for="deskripsi">Deskripsi</label>
+                    <input type="text" id="deskripsi">
+                    <small class="error-msg" id="error-deskripsi"></small>
+                </div>
+
+                <div class="field">
+                    <label for="status">Status</label>
+                    <select id="status">
+                        <option value="">-- Pilih Status --</option>
+                        <option value="Available">Available</option>
+                        <option value="Not Available">Not Available</option>
+                    </select>
+                    <small class="error-msg" id="error-status"></small>
+                </div>
+
+                <div class="edit-btn edit-mode">
+                    <button onclick="kembali()" class="btn-kembali">Kembali</button>
+                    <button onclick="openConfirmModal()">Simpan Perubahan</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="logoutModal" class="modal">
+        <div class="modal-content">
+            <h3>Konfirmasi Logout</h3>
+            <p>Apakah anda yakin ingin keluar?</p>
+            <div class="modal-actions">
+                <button class="btn-cancel" onclick="closeModal()">Batal</button>
+                <button class="btn-logout" onclick="confirmLogout()">Logout</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="confirmModal" class="modal">
+        <div class="modal-content">
+            <h3>Konfirmasi</h3>
+            <p>Apakah anda yakin ingin menyimpan perubahan?</p>
+            <div class="modal-actions">
+                <button class="btn-cancel" onclick="closeConfirmModal()">Tidak</button>
+                <button class="btn-logout" onclick="confirmSave()">Ya</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let indexEdit = null;
+        const params = new URLSearchParams(window.location.search);
+        indexEdit = params.get("index");
+
+        let lapakData = JSON.parse(localStorage.getItem("lapak")) || [];
+
+        if(indexEdit !== null){
+            const data = lapakData[indexEdit];
+            if(data){
+                document.getElementById("nama").value = data.nama;
+                document.getElementById("jenis").value = data.jenis;
+                document.getElementById("harga").value = data.harga;
+                document.getElementById("deskripsi").value = data.deskripsi;
+                document.getElementById("status").value = data.status;
+            }
+        }
+
+        function toggleSidebar(){
+            document.getElementById("sidebar").classList.toggle("close");
+        }
+
+        function kembali(){
+            window.location.href = "lapakadmin.html";
+        }
+
+        function openModal() {
+            document.getElementById("logoutModal").style.display = "flex";
+        }
+
+        function closeModal() {
+            document.getElementById("logoutModal").style.display = "none";
+        }
+
+        function confirmLogout() {
+            window.location.href = "index.html";
+        }
+
+        window.onclick = function(e) {
+            const logoutModal = document.getElementById("logoutModal");
+            const confirmModal = document.getElementById("confirmModal");
+
+            if (e.target === logoutModal) logoutModal.style.display = "none";
+            if (e.target === confirmModal) confirmModal.style.display = "none";
+        }
+
+        function setError(id, msg){
+            document.getElementById(id).classList.add("input-error");
+            document.getElementById("error-" + id).innerText = msg;
+        }
+
+        function clearError(id){
+            document.getElementById(id).classList.remove("input-error");
+            document.getElementById("error-" + id).innerText = "";
+        }
+
+        function openConfirmModal() {
+            document.getElementById("confirmModal").style.display = "flex";
+        }
+
+        function closeConfirmModal() {
+            document.getElementById("confirmModal").style.display = "none";
+        }
+
+        function confirmSave() {
+            let valid = true;
+
+            const nama = document.getElementById("nama").value.trim();
+            const jenis = document.getElementById("jenis").value.trim();
+            const harga = document.getElementById("harga").value.trim();
+            const deskripsi = document.getElementById("deskripsi").value.trim();
+            const status = document.getElementById("status").value;
+
+            ["nama","jenis","harga","deskripsi","status"].forEach(clearError);
+
+            if(!nama){ setError("nama","Wajib diisi"); valid=false; }
+            if(!jenis){ setError("jenis","Wajib diisi"); valid=false; }
+
+            if(!harga){
+                setError("harga","Wajib diisi");
+                valid=false;
+            } else if(isNaN(harga) || harga <= 10000){
+                setError("harga","Harga harus angka > 10000");
+                valid=false;
+            }
+
+            if(!deskripsi){ setError("deskripsi","Wajib diisi"); valid=false; }
+            if(!status){ setError("status","Pilih status"); valid=false; }
+
+            if(!valid){
+                closeConfirmModal();
+
+                const err = document.getElementById("errorMsg");
+                err.style.display = "block";
+
+                setTimeout(() => {
+                    err.style.display = "none";
+                }, 2000);
+
+                return;
+            }
+
+            closeConfirmModal();
+
+            lapakData[indexEdit] = {
+                ...lapakData[indexEdit],
+                nama,
+                jenis,
+                harga: Number(harga),
+                deskripsi,
+                status
+            };
+
+            localStorage.setItem("lapak", JSON.stringify(lapakData));
+
+            const msg = document.getElementById("successMsg");
+            msg.style.display = "block";
+
+            setTimeout(() => {
+                window.location.href = "lapakadmin.html";
+            }, 1500);
+        }
+
+        function loadNamaAdmin() {
+            const profil = JSON.parse(localStorage.getItem("profil")) || { nama: "Admin" };
+            document.getElementById("namaAdmin").innerText = profil.nama;
+        }
+        loadNamaAdmin();
+    </script>
+
+</body>
+</html>

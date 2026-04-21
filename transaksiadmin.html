@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Transaksi Admin</title>
+    <link rel="stylesheet" href="transaksiadmin.css">
+</head>
+
+<body>
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+            <span class="menu-title">Menu</span>
+        </div>
+
+        <a href="index.html"><div class="icon">🏠</div><span>Dashboard</span></a>
+        <a href="profil.html"><div class="icon">👤</div><span>Profil</span></a>
+        <a href="lapakadmin.html"><div class="icon">🎣</div><span>Lapak</span></a>
+        <a href="transaksiadmin.html" class="active"><div class="icon">📄</div><span>Transaksi</span></a>
+
+        <div class="sidebar-bottom">
+            <hr>
+            <a href="#" onclick="openModal()">
+                <span class="icon">🚪</span>
+                <span>Logout</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="main">
+        <div class="navbar">
+            <div class="left">
+                <img src="logo.png" alt="Logo HookPoint">
+                <span class="brand">HookPoint - Club Pemancingan</span>
+            </div>
+
+            <div class="right">
+                Selamat datang, <b id="namaAdmin">Admin</b>
+            </div>
+        </div>
+
+        <div class="content">
+            <h2>Transaksi</h2>
+
+            <div class="tabs">
+                <button class="tab" data-tab="menunggu">Menunggu</button>
+                <button class="tab" data-tab="dikonfirmasi">Dikonfirmasi</button>
+                <button class="tab" data-tab="selesai">Selesai</button>
+            </div>
+
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Cari transaksi...">
+                <button>Cari</button>
+            </div>
+
+            <div class="tab-content active" id="menunggu">
+                <table class="tabel-transaksi">
+                    <thead>
+                        <tr>
+                            <th>Lapak</th>
+                            <th>User</th>
+                            <th>Tanggal</th>
+                            <th>Status</th>
+                            <th>Bukti TF</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbodyMenunggu"></tbody>
+                </table>
+            </div>
+
+            <div class="tab-content" id="dikonfirmasi">
+                <table class="tabel-transaksi">
+                    <thead>
+                        <tr>
+                            <th>Lapak</th>
+                            <th>User</th>
+                            <th>Tanggal</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbodyKonfirmasi"></tbody>
+                </table>
+            </div>
+
+            <div class="tab-content" id="selesai">
+                <table class="tabel-transaksi">
+                    <thead>
+                        <tr>
+                            <th>Lapak</th>
+                            <th>User</th>
+                            <th>Tanggal</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbodySelesai"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div id="logoutModal" class="modal">
+        <div class="modal-content">
+            <h3>Konfirmasi Logout</h3>
+            <p>Apakah anda yakin ingin keluar?</p>
+
+            <div class="modal-actions">
+                <button class="btn-cancel" onclick="closeModal()">Batal</button>
+                <button class="btn-logout" onclick="confirmLogout()">Logout</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleSidebar(){
+            document.getElementById("sidebar").classList.toggle("close");
+        }
+
+        function openModal() {
+            document.getElementById("logoutModal").style.display = "flex";
+        }
+
+        function closeModal() {
+            document.getElementById("logoutModal").style.display = "none";
+        }
+
+        let transaksi = JSON.parse(localStorage.getItem("transaksi")) || [];
+
+        if(transaksi.length === 0){
+            transaksi = [
+                { lapak: "A1", user: "Budi", tanggal: "2026-05-20", status: "menunggu" },
+                { lapak: "B1", user: "Andi", tanggal: "2026-05-21", status: "menunggu" },
+                { lapak: "C1", user: "Rina", tanggal: "2026-05-18", status: "dikonfirmasi" },
+                { lapak: "D1", user: "Siti", tanggal: "2026-05-10", status: "selesai" }
+            ];
+
+            localStorage.setItem("transaksi", JSON.stringify(transaksi));
+        }
+
+        function renderTransaksi(){
+            const menunggu = document.getElementById("tbodyMenunggu");
+            const konfirmasi = document.getElementById("tbodyKonfirmasi");
+            const selesai = document.getElementById("tbodySelesai");
+
+            if(!menunggu || !konfirmasi || !selesai){
+                console.log("tbody tidak ditemukan");
+                return;
+            }
+
+            menunggu.innerHTML = "";
+            konfirmasi.innerHTML = "";
+            selesai.innerHTML = "";
+
+            transaksi.forEach((t, i) => {
+                const status = t.status.toLowerCase();
+
+                if(status === "menunggu"){
+                    menunggu.innerHTML += `
+                        <tr>
+                            <td>${t.lapak}</td>
+                            <td>${t.user}</td>
+                            <td>${t.tanggal}</td>
+                            <td><span class="status ${status}">${t.status}</span></td>
+                            <td style="text-align:center; font-size:18px; cursor:pointer;" 
+                                class="btn-bukti" data-index="${i}">🔍</td>
+                            <td>
+                                <button class="btn-konfirmasi" data-index="${i}">
+                                    Konfirmasi
+                                </button>
+                            </td>
+                        </tr>
+                    `;
+                }
+
+                else if(status === "dikonfirmasi"){
+                    konfirmasi.innerHTML += `
+                        <tr>
+                            <td>${t.lapak}</td>
+                            <td>${t.user}</td>
+                            <td>${t.tanggal}</td>
+                            <td><span class="status ${status}">${t.status}</span></td>
+                        </tr>
+                    `;
+                }
+
+                else if(status === "selesai"){
+                    selesai.innerHTML += `
+                        <tr>
+                            <td>${t.lapak}</td>
+                            <td>${t.user}</td>
+                            <td>${t.tanggal}</td>
+                            <td><span class="status ${status}">${t.status}</span></td>
+                        </tr>
+                    `;
+                }
+            });
+        }
+
+        document.addEventListener("click", function(e){
+
+            const tabBtn = e.target.closest(".tab");
+            if(tabBtn){
+                const tabName = tabBtn.dataset.tab;
+
+                document.querySelectorAll(".tab-content").forEach(c => c.classList.remove("active"));
+                document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+
+                document.getElementById(tabName).classList.add("active");
+                tabBtn.classList.add("active");
+            }
+
+            if(e.target.classList.contains("btn-konfirmasi")){
+                const index = e.target.dataset.index;
+
+                transaksi[index].status = "dikonfirmasi";
+                localStorage.setItem("transaksi", JSON.stringify(transaksi));
+
+                renderTransaksi(); 
+            }
+
+            if(e.target.classList.contains("btn-bukti")){
+                const index = e.target.dataset.index;
+                alert("Lihat bukti transfer transaksi ke-" + index);
+            }
+        });
+
+        document.addEventListener("input", function(e){
+            if(e.target.id === "searchInput"){
+                const keyword = e.target.value.toLowerCase();
+
+                document.querySelectorAll("tbody tr").forEach(row => {
+                    row.style.display = row.innerText.toLowerCase().includes(keyword) ? "" : "none";
+                });
+            }
+        });
+
+        document.addEventListener("DOMContentLoaded", function(){
+
+            renderTransaksi(); 
+
+            const firstTab = document.querySelector(".tab");
+            const firstContent = document.querySelector(".tab-content");
+
+            if(firstTab && firstContent){
+                firstTab.classList.add("active");
+                firstContent.classList.add("active");
+            }
+        });
+
+        function loadNamaAdmin() {
+            const profil = JSON.parse(localStorage.getItem("profil")) || { nama: "Admin" };
+            document.getElementById("namaAdmin").innerText = profil.nama;
+        }
+
+        loadNamaAdmin();
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil - HookPoint</title>
+
+    <link rel="stylesheet" href="profil.css">
+</head>
+
+<body>
+    <div class="sidebar" id="sidebar">
+
+        <div class="sidebar-header">
+            <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+            <span class="menu-title">Menu</span>
+        </div>
+
+        <a href="index.html"><span class="icon">🏠</span><span>Dashboard</span></a>
+        <a href="profil.html" class="active"><span class="icon">👤</span><span>Profil</span></a>
+        <a href="lapakadmin.html"><span class="icon">🎣</span><span>Lapak</span></a>
+        <a href="transaksiadmin.html"><span class="icon">🧾</span><span>Transaksi</span></a>
+
+        <div class="sidebar-bottom">
+            <hr>
+            <a href="#" onclick="openModal()">
+                <span class="icon">🚪</span>
+                <span>Logout</span>
+            </a>
+        </div>
+
+    </div>
+
+    <div class="main">
+
+        <div class="navbar">
+            <div class="left">
+                <img src="logo.png" alt="Logo">
+                <span class="brand">HookPoint - Club Pemancingan</span>
+            </div>
+
+            <div class="right">
+                Selamat datang, <b id="namaAdmin">Admin</b>
+            </div>
+        </div>
+
+        <div class="content">
+
+            <div class="profile-card">
+                <h2>Profil Akun</h2>
+
+                <div class="field">
+                    <label>Username</label>
+                    <p>admin123</p>
+                </div>
+
+                <div class="field">
+                    <label>Nama Lengkap</label>
+                    <p>Admin HookPoint</p>
+                </div>
+
+                <div class="field">
+                    <label>No Telepon</label>
+                    <p>081234567890</p>
+                </div>
+
+                <div class="field">
+                    <label for="password">Password</label>
+                    <div class="password-box">
+                        <input type="password" id="password" value="admin123" readonly>
+                        <button onclick="togglePassword()" class="eye-btn">👁️</button>
+                    </div>
+                </div>
+
+                <div class="edit-btn">
+                    <a href="editprofil.html" class="edit-link">Edit Profil</a>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div id="logoutModal" class="modal">
+        <div class="modal-content">
+            <h3>Konfirmasi Logout</h3>
+            <p>Apakah anda yakin ingin keluar?</p>
+
+            <div class="modal-actions">
+                <button class="btn-cancel" onclick="closeModal()">Batal</button>
+                <button class="btn-logout" onclick="confirmLogout()">Logout</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            document.getElementById("sidebar").classList.toggle("close");
+        }
+
+        function togglePassword() {
+            const pass = document.getElementById("password");
+            pass.type = pass.type === "password" ? "text" : "password";
+        }
+
+        function openModal() {
+            document.getElementById("logoutModal").style.display = "flex";
+        }
+
+        function closeModal() {
+            document.getElementById("logoutModal").style.display = "none";
+        }
+
+        function confirmLogout() {
+            window.location.href = "index.html";
+        }
+
+        window.onclick = function(e) {
+            const logoutModal = document.getElementById("logoutModal");
+            if (e.target === logoutModal) logoutModal.style.display = "none";
+        }
+
+        let profil = JSON.parse(localStorage.getItem("profil")) || {
+            username: "admin123",
+            nama: "Admin HookPoint",
+            telepon: "081234567890",
+            password: "admin123"
+        };
+
+        const fields = document.querySelectorAll(".field p");
+
+        fields[0].innerText = profil.username;
+        fields[1].innerText = profil.nama;
+        fields[2].innerText = profil.telepon;
+
+        document.getElementById("password").value = profil.password;
+
+        document.getElementById("namaAdmin").innerText = profil.nama;
+
+        function loadNamaAdmin() {
+            const profil = JSON.parse(localStorage.getItem("profil")) || {
+                nama: "Admin"
+            };
+
+            const el = document.getElementById("namaAdmin");
+            if (el) {
+                el.innerText = profil.nama;
+            }
+        }
+
+        loadNamaAdmin();
+    </script>
+
+</body>
+</html>

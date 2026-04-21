@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profil - HookPoint</title>
+    <link rel="stylesheet" href="profil.css">
+</head>
+
+<body>
+
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <button class="toggle-btn" data-action="toggleSidebar">☰</button>
+            <span class="menu-title">Menu</span>
+        </div>
+        
+        <a href="index.html"><div class="icon">🏠</div><span>Dashboard</span></a>
+        <a href="profil.html" class="active"><div class="icon">👤</div><span>Profil</span></a>
+        <a href="lapakadmin.html"><div class="icon">🎣</div><span>Lapak</span></a>
+        <a href="transaksiadmin.html"><div class="icon">📄</div><span>Transaksi</span></a>
+
+        <div class="sidebar-bottom">
+            <hr>
+            <a href="#" data-action="openLogout">
+                <span class="icon">🚪</span>
+                <span>Logout</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="main">
+
+        <div class="navbar">
+            <div class="left">
+                <img src="logo.png" alt="Logo HookPoint">
+                <span class="brand">HookPoint - Club Pemancingan</span>
+            </div>
+            <div class="right">
+                Selamat datang, <b id="namaAdmin">Admin</b>
+            </div>
+        </div>
+
+        <div class="content">
+
+            <div id="successMsg" class="success-msg">
+                Perubahan berhasil disimpan!
+            </div>
+
+            <div id="errorMsg" class="error-msg-global">
+                Data gagal disimpan, periksa kembali!
+            </div>
+
+            <div class="profile-card">
+                <h2>Edit Profil</h2>
+
+                <div class="field">
+                    <label>Username</label>
+                    <input type="text" id="username" aria-label="Username" value="admin123">
+                    <small class="error-msg" id="error-username"></small>
+                </div>
+
+                <div class="field">
+                    <label>Nama Lengkap</label>
+                    <input type="text" id="nama" aria-label="Nama Lengkap" value="Admin HookPoint">
+                    <small class="error-msg" id="error-nama"></small>
+                </div>
+
+                <div class="field">
+                    <label>No Telepon</label>
+                    <input type="text" id="telepon" aria-label="Telepon" value="081234567890">
+                    <small class="error-msg" id="error-telepon"></small>
+                </div>
+
+                <div class="field">
+                    <label>Password</label>
+                    <div class="password-box">
+                        <input type="password" id="password" aria-label="Password" value="admin123">
+                        <button data-action="togglePassword" class="eye-btn">👁️</button>
+                    </div>
+                    <small class="error-msg" id="error-password"></small>
+                </div>
+
+                <div class="edit-btn edit-mode">
+                    <button class="btn" data-action="kembali">Kembali</button>
+                    <button class="btn" data-action="openConfirm">Simpan Perubahan</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="logoutModal" class="modal">
+        <div class="modal-content">
+            <h3>Konfirmasi Logout</h3>
+            <p>Apakah anda yakin ingin keluar?</p>
+            <div class="modal-actions">
+                <button data-action="closeLogout" class="btn-cancel">Batal</button>
+                <button data-action="logout" class="btn-logout">Logout</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="confirmModal" class="modal">
+        <div class="modal-content">
+            <h3>Konfirmasi</h3>
+            <p>Apakah anda yakin ingin menyimpan perubahan?</p>
+            <div class="modal-actions">
+                <button data-action="closeConfirm" class="btn-cancel">Tidak</button>
+                <button data-action="save" class="btn-logout">Ya</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let profil = JSON.parse(localStorage.getItem("profil")) || {
+            username: "admin123",
+            nama: "Admin HookPoint",
+            telepon: "081234567890",
+            password: "admin123"
+        };
+
+        document.getElementById("username").value = profil.username;
+        document.getElementById("nama").value = profil.nama;
+        document.getElementById("telepon").value = profil.telepon;
+        document.getElementById("password").value = profil.password;
+        document.getElementById("namaAdmin").innerText = profil.nama;
+
+        const setError = (id, msg) => {
+            document.getElementById(id).classList.add("input-error");
+            document.getElementById("error-" + id).innerText = msg;
+        };
+
+        const clearError = (id) => {
+            document.getElementById(id).classList.remove("input-error");
+            document.getElementById("error-" + id).innerText = "";
+        };
+
+        document.addEventListener("click", (e) => {
+            const action = e.target.dataset.action;
+
+            if (!action) return;
+
+            switch(action){
+
+                case "toggleSidebar":
+                    document.getElementById("sidebar").classList.toggle("close");
+                    break;
+
+                case "togglePassword":
+                    const pass = document.getElementById("password");
+                    pass.type = pass.type === "password" ? "text" : "password";
+                    break;
+
+                case "kembali":
+                    window.location.href = "profil.html";
+                    break;
+
+                case "openLogout":
+                    document.getElementById("logoutModal").style.display = "flex";
+                    break;
+
+                case "closeLogout":
+                    document.getElementById("logoutModal").style.display = "none";
+                    break;
+
+                case "logout":
+                    window.location.href = "index.html";
+                    break;
+
+                case "openConfirm":
+                    document.getElementById("confirmModal").style.display = "flex";
+                    break;
+
+                case "closeConfirm":
+                    document.getElementById("confirmModal").style.display = "none";
+                    break;
+
+                case "save":
+                    confirmSave();
+                    break;
+            }
+        });
+
+        function confirmSave(){
+            let valid = true;
+
+            const username = document.getElementById("username").value.trim();
+            const nama = document.getElementById("nama").value.trim();
+            const telepon = document.getElementById("telepon").value.trim();
+            const password = document.getElementById("password").value.trim();
+
+            ["username","nama","telepon","password"].forEach(clearError);
+
+            if(!username){ setError("username","Wajib diisi"); valid=false; }
+            if(!nama){ setError("nama","Wajib diisi"); valid=false; }
+
+            if(!telepon){
+                setError("telepon","Wajib diisi"); valid=false;
+            } else if(isNaN(telepon)){
+                setError("telepon","Harus angka"); valid=false;
+            } else if(telepon.length <= 9){
+                setError("telepon","Minimal 10 digit"); valid=false;
+            }
+
+            if(!password){
+                setError("password","Wajib diisi"); valid=false;
+            } else if(password.length < 4){
+                setError("password","Minimal 4 karakter"); valid=false;
+            }
+
+            if(!valid){
+                document.getElementById("confirmModal").style.display = "none";
+                document.getElementById("errorMsg").style.display = "block";
+
+                setTimeout(()=>{
+                    document.getElementById("errorMsg").style.display = "none";
+                },2000);
+
+                return;
+            }
+
+            const dataBaru = { username, nama, telepon, password };
+            localStorage.setItem("profil", JSON.stringify(dataBaru));
+
+            document.getElementById("confirmModal").style.display = "none";
+            document.getElementById("successMsg").style.display = "block";
+
+            setTimeout(()=>{
+                window.location.href = "profil.html";
+            },1500);
+        }
+    </script>
+
+</body>
+</html>

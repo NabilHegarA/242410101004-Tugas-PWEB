@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lapak - HookPoint</title>
+    <link rel="stylesheet" href="lapakadmin.css">
+</head>
+
+<body>
+
+    <div class="sidebar" id="sidebar">
+
+        <div class="sidebar-header">
+            <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+            <span class="menu-title">Menu</span>
+        </div>
+        
+        <a href="index.html"><div class="icon">🏠</div><span>Dashboard</span></a>
+        <a href="profil.html"><div class="icon">👤</div><span>Profil</span></a>
+        <a href="lapakadmin.html" class="active"><div class="icon">🎣</div><span>Lapak</span></a>
+        <a href="transaksiadmin.html"><div class="icon">📄</div><span>Transaksi</span></a>
+
+        <div class="sidebar-bottom">
+            <hr>
+            <a href="#" onclick="openModal()">
+                <span class="icon">🚪</span>
+                <span>Logout</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="main">
+
+        <div class="navbar">
+            <div class="left">
+                <img src="logo.png" alt="Logo HookPoint">
+                <span class="brand">HookPoint - Club Pemancingan</span>
+            </div>
+
+            <div class="right">
+                Selamat datang, <b id="namaAdmin">Admin</b>
+            </div>
+        </div>
+
+        <div class="content">
+
+            <h2>Daftar Lapak</h2>
+
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Cari lapak...">
+                <button>Cari</button>
+            </div>
+
+            <div class="filter-box">
+                <div>
+                    <label for="filterStatus">Filter Status</label>
+                    <select id="filterStatus">
+                        <option value="">Semua Status</option>
+                        <option value="Available">Available</option>
+                        <option value="Not Available">Not Available</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="filterJenis">Filter Jenis</label>
+                    <select id="filterJenis">
+                        <option value="">Semua Jenis</option>
+                        <option value="lele">Lele</option>
+                        <option value="nila">Nila</option>
+                        <option value="gurame">Gurame</option>
+                        <option value="patin">Patin</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="content-header">
+                <a href="tambah-lapak.html" class="btn-tambah">
+                    + Tambah Data Lapak
+                </a>
+            </div>
+
+            <div class="lapak-grid" id="lapakContainer"></div>
+
+        </div>
+    </div>
+
+    <div id="hapusModal" class="modal">
+        <div class="modal-content">
+            <h3>Konfirmasi Hapus</h3>
+            <p>Yakin mau menghapus lapak ini?</p>
+
+            <div class="modal-actions">
+                <button class="btn-cancel" onclick="closeHapusModal()">Batal</button>
+                <button class="btn-hapus-confirm" onclick="confirmHapus()">Hapus</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="logoutModal" class="modal">
+        <div class="modal-content">
+            <h3>Konfirmasi Logout</h3>
+            <p>Apakah anda yakin ingin keluar?</p>
+
+            <div class="modal-actions">
+                <button class="btn-cancel" onclick="closeModal()">Batal</button>
+                <button class="btn-logout" onclick="confirmLogout()">Logout</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let lapakData = JSON.parse(localStorage.getItem("lapak")) || [];
+
+        const renderLapak = (data) => {
+            const container = document.getElementById("lapakContainer");
+            container.innerHTML = "";
+
+            if (data.length === 0) {
+                container.innerHTML = "<p>Tidak ada data lapak</p>";
+                return;
+            }
+
+            data.forEach((lapak, index) => {
+                container.innerHTML += `
+                <article class="card">
+                    <img src="${lapak.gambar || 'kolam-lele.png'}">
+                    <h3>${lapak.nama}</h3>
+                    <p><strong>Jenis:</strong> ${lapak.jenis}</p>
+                    <p><strong>Harga:</strong> Rp ${lapak.harga}</p>
+                    <p>${lapak.deskripsi}</p>
+                    <p class="status ${lapak.status === 'Available' ? 'available':'unavailable'}">
+                        Status: ${lapak.status}
+                    </p>
+
+                    <div class="card-actions">
+                        <a href="edit-lapak.html?index=${index}" class="btn">Edit</a>
+                        <button onclick="hapusLapak(${index})" class="btn-hapus">Hapus</button>
+                    </div>
+                </article>
+                `;
+            });
+        };
+
+        function applyFilter() {
+            const keyword = document.getElementById("searchInput").value.toLowerCase();
+            const status = document.getElementById("filterStatus")?.value || "";
+            const jenis = document.getElementById("filterJenis")?.value || "";
+
+            const hasil = lapakData.filter(l => {
+                const matchSearch =
+                    l.nama.toLowerCase().includes(keyword) ||
+                    l.jenis.toLowerCase().includes(keyword);
+
+                const matchStatus = status ? l.status === status : true;
+                const matchJenis = jenis ? l.jenis.toLowerCase().includes(jenis) : true;
+
+                return matchSearch && matchStatus && matchJenis;
+            });
+
+            renderLapak(hasil);
+        }
+
+        renderLapak(lapakData);
+
+        let indexHapus = null;
+
+        function hapusLapak(index) {
+            indexHapus = index;
+            document.getElementById("hapusModal").style.display = "flex";
+        }
+
+        function closeHapusModal() {
+            document.getElementById("hapusModal").style.display = "none";
+        }
+
+        function confirmHapus() {
+            lapakData.splice(indexHapus, 1);
+
+            localStorage.setItem("lapak", JSON.stringify(lapakData));
+
+            closeHapusModal();
+            applyFilter(); // biar tetap ke-filter setelah hapus
+        }
+
+        document.getElementById("searchInput").addEventListener("input", applyFilter);
+
+        document.getElementById("filterStatus")?.addEventListener("change", applyFilter);
+        document.getElementById("filterJenis")?.addEventListener("change", applyFilter);
+
+        function toggleSidebar() {
+            document.getElementById("sidebar").classList.toggle("close");
+        }
+
+        function openModal() {
+            document.getElementById("logoutModal").style.display = "flex";
+        }
+
+        function closeModal() {
+            document.getElementById("logoutModal").style.display = "none";
+        }
+
+        function confirmLogout() {
+            window.location.href = "index.html";
+        }
+
+        window.onclick = function (e) {
+            const logoutModal = document.getElementById("logoutModal");
+            const hapusModal = document.getElementById("hapusModal");
+
+            if (e.target === logoutModal) logoutModal.style.display = "none";
+            if (e.target === hapusModal) hapusModal.style.display = "none";
+        };
+
+        function loadNamaAdmin() {
+            const profil = JSON.parse(localStorage.getItem("profil")) || {
+                nama: "Admin"
+            };
+
+            const el = document.getElementById("namaAdmin");
+            if (el) {
+                el.innerText = profil.nama;
+            }
+        }
+
+        loadNamaAdmin();
+    </script>
+
+</body>
+</html>
