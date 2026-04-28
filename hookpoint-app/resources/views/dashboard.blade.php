@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Dashboard-SIAK</title>
+    <title>Dashboard - HookPoint</title>
 </head>
 <body>
-    <h1>Dashboard SIAK</h1>
+    <h1>Dashboard HookPoint</h1>
 </body>
 </html>
