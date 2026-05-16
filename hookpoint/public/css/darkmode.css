@@ -1,0 +1,223 @@
+
+/* =========================
+   BASE LIGHT MODE
+========================= */
+body {
+    background: #f4f6f9;
+    color: #111;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* =========================
+   🌙 DARK MODE GLOBAL
+========================= */
+.dark body {
+    background: #0f172a;
+    color: #e5e7eb;
+}
+
+/* =========================
+   NAVBAR
+========================= */
+.dark .navbar {
+    background: #0b1220;
+    color: #e5e7eb;
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+.dark .sidebar {
+    background: #0b1220;
+    color: #e5e7eb;
+}
+
+.dark .sidebar a {
+    color: #e5e7eb;
+}
+
+.dark .sidebar a:hover {
+    background: rgba(255,255,255,0.08);
+}
+
+.dark .sidebar a.active {
+    background: #1e293b;
+}
+
+/* =========================
+   CONTENT AREA
+========================= */
+.dark .content {
+    background: #0f172a;
+}
+
+.dark .profile-page {
+    position: relative;
+    background: url('../images/bg.png') center/cover no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dark .profile-page::before {
+    background: rgba(0,0,0,0.8);
+}
+
+/* =========================
+   CARD (dashboard & umum)
+========================= */
+.dark .card,
+.dark .profile-card {
+    background: #1e293b;
+    color: #e5e7eb;
+    border: 1px solid #334155;
+}
+
+/* =========================
+   TEXT GLOBAL
+========================= */
+.dark h1,
+.dark h2,
+.dark h3,
+.dark h4,
+.dark p,
+.dark span,
+.dark label {
+    color: #e5e7eb;
+}
+
+/* =========================
+   INPUT / SEARCH / SELECT
+========================= */
+.dark input,
+.dark select,
+.dark textarea {
+    background: #1e293b;
+    color: #e5e7eb;
+    border: 1px solid #334155;
+}
+
+.dark input::placeholder {
+    color: #94a3b8;
+}
+
+/* =========================
+   BUTTON (FIX WARNA HIJAU KAMU)
+========================= */
+.dark .btn-tambah,
+.dark .btn-edit {
+    background: #2e8b57;
+    color: white;
+}
+
+.dark .btn-tambah:hover,
+.dark .btn-edit:hover {
+    background: #256f47;
+}
+
+/* =========================
+   STATUS TEXT
+========================= */
+.dark .available {
+    color: #22c55e;
+}
+
+.dark .unavailable {
+    color: #ef4444;
+}
+
+/* =========================
+   EMPTY STATE
+========================= */
+.dark .empty-message {
+    background: #1e293b;
+    color: #94a3b8;
+}
+
+/* =========================
+   MODAL
+========================= */
+.dark .modal-content {
+    background: #1e293b;
+    color: #e5e7eb;
+}
+
+.dark .btn-cancel {
+    background: #334155;
+    color: #e5e7eb;
+}
+
+.dark .btn-logout {
+    background: #16a34a;
+}
+
+/* =========================
+   SUCCESS MESSAGE
+========================= */
+.dark .success-msg {
+    background: #16a34a;
+    color: white;
+}
+
+/* =========================
+   PROFILE PAGE
+========================= */
+.dark .profile-card h2 {
+    color: #f1f5f9;
+}
+
+.dark .field label {
+    color: #cbd5e1;
+}
+
+/* =========================
+   CARD HOVER
+========================= */
+.dark .card:hover {
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
+/* =========================
+   SWITCH TOGGLE (HIJAU FIX)
+========================= */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 16px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  inset: 0;
+  background-color: #ccc;
+  transition: 0.3s;
+  border-radius: 30px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 10px;
+  width: 10px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.3s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #22c55e; /* HIJAU (sesuai theme kamu) */
+}
+
+input:checked + .slider:before {
+  transform: translateX(24px);
+}
